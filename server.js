@@ -2,6 +2,7 @@
 const bcrypt = require('bcrypt');
 const express = require('express');
 const mongoose = require('mongoose');
+const User = require('./models/Users.js');
 const app = express();
 require('dotenv').config();
 const db = mongoose.connection;
@@ -33,10 +34,14 @@ app.use(express.urlencoded({extended: true})); // populates the req.body with pa
 app.use(express.json());
 
 //Routes
+
+//create new user
 app.post('/users/new', (req, res)=>{
   req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
-
-})
+  User.create(req.body, (error, newUser)=>{
+    res.send('user created');
+  });
+});
 
 
 // Listen
