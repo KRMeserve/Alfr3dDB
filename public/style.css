@@ -1,0 +1,52 @@
+/* Colors */
+:root {
+    --steel: rgba(102, 66, 215, 0.19);
+    --light-blue: rgba(78, 170, 222, 0.72);
+    --off-white: rgba(245,255,245,1);
+}
+
+/* Fonts */
+@import url('https://fonts.googleapis.com/css?family=Major+Mono+Display');
+
+/* Styling */
+
+* {
+  margin: 0;
+}
+body {
+  background-color: var(--light-blue);
+  font-family: 'Major Mono Display', monospace;
+}
+h1 {
+  text-align: center;
+}
+.instructions {
+  padding: 50px;
+}
+.alfred {
+  display: block;
+  width: 200px;
+  margin: 0 auto;
+}
+.alfred:hover {
+    animation: wiggle .4s both;
+}
+
+/* Animations */
+@keyframes wiggle {
+    0% {
+        transform: rotate(0deg);
+    }
+    10% {
+        transform: rotate(2deg);
+    }
+    40% {
+        transform: rotate(-2deg);
+    }
+    80% {
+        transform: rotate(2deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}

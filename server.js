@@ -59,7 +59,7 @@ app.get('/:sym', (req, res)=>{
           //if the key is 'symbol', then we check to see if the symbol matches the symbol passed in the req.params
           if (key === 'symbol') {
             //If the symbol is the same as the params symbol, we push it into the requestedCrypto array.
-            if (cryptos[i].symbol === req.params.sym) {
+            if (cryptos[i].symbol === req.params.sym.toUpperCase()) {
               requestedCrypto.push(cryptos[i])
             }
           }
