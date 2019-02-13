@@ -33,9 +33,10 @@ h1 {
 }
 a {
   color: var(--light-blue);
+  transition: .4s;
 }
 a:hover {
-  animation: wiggle .4s both;
+  color: darkblue;
 }
 
 /* Animations */
