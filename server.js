@@ -66,7 +66,7 @@ app.get('/:sym', (req, res)=>{
         }
       };
       console.log(requestedCrypto);
-      res.json(requestedCrypto);
+      return(res.json(requestedCrypto))
     } else {
       console.log(error);
       res.json(error);
