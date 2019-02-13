@@ -41,7 +41,7 @@ app.use(express.json());
 app.post('/users/new', (req, res)=>{
   req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
   User.create(req.body, (error, newUser)=>{
-    res.send('user created');
+    res.json(newUser);
   });
 });
 
