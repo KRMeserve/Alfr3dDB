@@ -39,12 +39,29 @@ app.use(express.json());
 
 //create new user
 app.post('/users/new', (req, res)=>{
+  //encrypting password
   req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
+  //creating new user in database with encrypted password
   User.create(req.body, (error, newUser)=>{
     res.json(newUser);
   });
 });
 
+//User login
+app.get('/users', (req, res)=>{
+  //looks through database for a matching username
+  User.findOne({username: req.body.username}, (error, returnedUser)=>{
+    //if there is a matching username, encrypts received password and tests against saved encrypted password in database
+    if (bcrypt.compareSync(req.body.password, returnedUser.password)) {
+      res.send('passwords match!');
+    } else {
+      res.send('passwords do not match!');
+    }
+  })
+})
+
+
+//whichever symbol is passed in is parsed from binance and symbol and price returned
 app.get('/:sym', (req, res)=>{
   request.get({url: "https://api.binance.com/api/v3/ticker/price"}, (error, response, body)=>{
     if (!error) {
@@ -65,10 +82,8 @@ app.get('/:sym', (req, res)=>{
           }
         }
       };
-      console.log(requestedCrypto);
       return(res.json(requestedCrypto))
     } else {
-      console.log(error);
       res.json(error);
     };
   });
