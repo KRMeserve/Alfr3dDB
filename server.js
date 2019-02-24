@@ -37,6 +37,25 @@ app.use(express.json());
 
 //Routes
 
+//User login
+app.post('/users', (req, res)=>{
+  //looks through database for a matching username
+  User.findOne({username: req.body.username}, (error, returnedUser)=>{
+    console.log(req.body.username);
+    console.log(returnedUser);
+    //if there is a matching username, encrypts received password and tests against saved encrypted password in database
+    if (returnedUser !== null) {
+      if (bcrypt.compareSync(req.body.password, returnedUser.password)) {
+        res.json('passwords match');
+      } else {
+        res.json(error);
+      }
+    } else {
+      res.json('user does not exist')
+    }
+  })
+})
+
 //create new user
 app.post('/users/new', (req, res)=>{
   //encrypting password
@@ -46,19 +65,6 @@ app.post('/users/new', (req, res)=>{
     res.json(newUser);
   });
 });
-
-//User login
-app.post('/users', (req, res)=>{
-  //looks through database for a matching username
-  User.findOne({username: req.body.username}, (error, returnedUser)=>{
-    //if there is a matching username, encrypts received password and tests against saved encrypted password in database
-    if (bcrypt.compareSync(req.body.password, returnedUser.password)) {
-      res.send('passwords match!');
-    } else {
-      res.send('passwords do not match!');
-    }
-  })
-})
 
 
 //whichever symbol is passed in is parsed from binance and symbol and price returned
