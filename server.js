@@ -39,6 +39,9 @@ app.use(express.json());
 
 //User login
 app.post('/users', (req, res)=>{
+  console.log(req.body);
+  console.log(req.body.username, 'username');
+  console.log(req.body.password, 'password');
   //looks through database for a matching username
   User.findOne({username: req.body.username}, (error, returnedUser)=>{
     console.log(req.body.username);
