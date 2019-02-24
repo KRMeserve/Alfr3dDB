@@ -48,7 +48,7 @@ app.post('/users/new', (req, res)=>{
 });
 
 //User login
-app.get('/users', (req, res)=>{
+app.post('/users', (req, res)=>{
   //looks through database for a matching username
   User.findOne({username: req.body.username}, (error, returnedUser)=>{
     //if there is a matching username, encrypts received password and tests against saved encrypted password in database
