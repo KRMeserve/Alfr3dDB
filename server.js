@@ -51,7 +51,7 @@ app.post('/users', (req, res)=>{
       if (bcrypt.compareSync(req.body.password, returnedUser.password)) {
         res.json('passwords match');
       } else {
-        res.json(error);
+        res.json('error');
       }
     } else {
       res.json('user does not exist')
