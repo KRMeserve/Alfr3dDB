@@ -3,12 +3,23 @@ const bcrypt = require('bcrypt');
 const express = require('express');
 const request = require('request');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const User = require('./models/Users.js');
 const app = express();
 require('dotenv').config();
 const db = mongoose.connection;
 // API used to collect data on Crypto Prices: Binance Official API
 
+const whitelist = ['https://alfr3d.netlify.com']
+const corsOptions = {
+  origin: (origin, callback) =>{
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
 
 // port
 const PORT = process.env.PORT || 3000;
@@ -34,6 +45,7 @@ db.on('open', ()=>{});
 app.use(express.static('public')); //Can build front-end of this app in public folder.
 app.use(express.urlencoded({extended: true})); // populates the req.body with parsed info from forms
 app.use(express.json());
+app.use(cors(corsOptions)); //middleware to disable CORS and allow my external site to call my db
 
 //Routes
 
