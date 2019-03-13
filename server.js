@@ -10,6 +10,7 @@ require('dotenv').config();
 const db = mongoose.connection;
 // API used to collect data on Crypto Prices: Binance Official API
 
+//Allows cors requests from Alfr3d site, but blocks from other sites
 const whitelist = ['https://alfr3d.netlify.com']
 const corsOptions = {
   origin: (origin, callback) =>{
