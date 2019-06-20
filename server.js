@@ -46,7 +46,7 @@ db.on('open', ()=>{});
 app.use(express.static('public')); //Can build front-end of this app in public folder.
 app.use(express.urlencoded({extended: true})); // populates the req.body with parsed info from forms
 app.use(express.json());
-// app.use(cors(corsOptions)); //middleware to disable CORS and allow my external site to call my db
+app.use(cors(corsOptions)); //middleware to disable CORS and allow my external site to call my db
 
 //Routes
 
