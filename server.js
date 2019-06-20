@@ -11,7 +11,7 @@ const db = mongoose.connection;
 // API used to collect data on Crypto Prices: Binance Official API
 
 //Allows cors requests from Alfr3d site, but blocks from other sites
-const whitelist = ['https://alfr3d.netlify.com', 'http://www.amarillosky.com']
+const whitelist = ['https://alfr3d.netlify.com', 'http://www.amarillosky.com', 'https://alfr3d-db.herokuapp.com/', 'http://localhost:3000', 'http://localhost:3001']
 const corsOptions = {
   origin: (origin, callback) =>{
     if (whitelist.indexOf(origin) !== -1) {
@@ -46,7 +46,7 @@ db.on('open', ()=>{});
 app.use(express.static('public')); //Can build front-end of this app in public folder.
 app.use(express.urlencoded({extended: true})); // populates the req.body with parsed info from forms
 app.use(express.json());
-app.use(cors(corsOptions)); //middleware to disable CORS and allow my external site to call my db
+// app.use(cors(corsOptions)); //middleware to disable CORS and allow my external site to call my db
 
 //Routes
 
