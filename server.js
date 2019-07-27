@@ -80,7 +80,20 @@ app.post('/users', (req, res)=>{
       res.json('user does not exist')
     }
   })
-})
+});
+
+app.post('/user', (req, res)=>{
+  console.log(req.body, 'req.body of user');
+  User.findOne({username: req.body.username}, (error, returnedUser)=>{
+    if (returnedUser) {
+      console.log(returnedUser, 'returnedUser');
+      console.log(returnedUser.savedCrypto, 'savedCrypto on returneduser')
+      res.json(returnedUser.savedCrypto);
+    } else {
+      res.json('could not find user');
+    }
+  })
+});
 
 //whichever symbol is passed in is parsed from binance and symbol and price returned
 app.get('/:sym', (req, res)=>{
