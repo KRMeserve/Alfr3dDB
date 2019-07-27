@@ -23,7 +23,7 @@ const corsOptions = {
 }
 
 // port
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 // Database
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/' + 'Alfr3d';
@@ -50,6 +50,16 @@ app.use(cors(corsOptions)); //middleware to disable CORS and allow my external s
 
 //Routes
 
+//create new user
+app.post('/users/new', (req, res)=>{
+  //encrypting password
+  req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
+  //creating new user in database with encrypted password
+  User.create(req.body, (error, newUser)=>{
+    res.json(newUser);
+  });
+});
+
 //User login
 app.post('/users', (req, res)=>{
   console.log(req.body);
@@ -71,17 +81,6 @@ app.post('/users', (req, res)=>{
     }
   })
 })
-
-//create new user
-app.post('/users/new', (req, res)=>{
-  //encrypting password
-  req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10));
-  //creating new user in database with encrypted password
-  User.create(req.body, (error, newUser)=>{
-    res.json(newUser);
-  });
-});
-
 
 //whichever symbol is passed in is parsed from binance and symbol and price returned
 app.get('/:sym', (req, res)=>{
